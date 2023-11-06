@@ -17,8 +17,8 @@ export class ViajesService {
     return 'This action adds a new viaje';
   }
 
-  findAll() {
-    return `This action returns all viajes`;
+  async findAll() {
+    return await this.viajeRepository.find() ;
   }
 
   findOne(id: number) {

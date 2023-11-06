@@ -24,6 +24,9 @@ export class Viaje {
   @Column()
   numeroVuelo: string;
 
+  @Column({nullable:true})
+  foto: string
+
   @ManyToOne(() => Carrito, carrito => carrito.viajes)
   carrito: Carrito;
 }

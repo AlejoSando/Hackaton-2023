@@ -7,14 +7,15 @@ import { UpdateViajeDto } from './dto/update-viaje.dto';
 export class ViajesController {
   constructor(private readonly viajesService: ViajesService) {}
 
+
   @Post()
   create(@Body() createViajeDto: CreateViajeDto) {
     return this.viajesService.create(createViajeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.viajesService.findAll();
+  @Get('getallviajes')
+  async getAllViajes() {
+    return await this.viajesService.findAll();
   }
 
   @Get(':id')
