@@ -20,7 +20,7 @@ export class UserController {
     async registrar(@Body() newUser: CreateUserDto, @Res() res){
         try {
             const response = await this.usersService.register(newUser);
-            res.status(HttpStatus.CREATED).send(response)
+            return res.status(HttpStatus.CREATED).send(response)
         } catch (error) {
             if(error.message.includes('Duplicate entry'))
             res.status(HttpStatus.BAD_REQUEST).send({message: 'El nombre de usuario ya existe'})

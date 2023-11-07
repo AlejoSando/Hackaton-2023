@@ -15,10 +15,6 @@ export class CreateUserDto {
     @MinLength(6)
     @IsString()
     password: string
-    
-    @IsDate()
-    @Type(()=> Date)
-    fec_nac: Date
 
 }
 

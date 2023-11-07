@@ -34,10 +34,9 @@ export class UserService {
         const carrito = this.carritoRepository.create();
         carrito.usuario = insertedUser;
       
-        await this.userRepository.save(insertedUser); // Guardar el usuario primero
-        await this.carritoRepository.save(carrito); // Guardar el carrito
+        await this.userRepository.save(insertedUser); 
+        await this.carritoRepository.save(carrito); 
       
-        // Actualizar el campo carrito del usuario
         insertedUser.carrito = carrito;
         await this.userRepository.save(insertedUser);
       
