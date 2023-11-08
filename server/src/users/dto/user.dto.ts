@@ -8,5 +8,5 @@ export class UserDB {
     name: string
     surname: string
     role: UserRole
-    fec_nac: Date
+    fec_nac: string
 }

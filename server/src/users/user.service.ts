@@ -23,8 +23,8 @@ export class UserService {
     ) {}
     
     async register(user: CreateUserDto) {
-        const usuario = await this.userRepository.findOneBy({ email: user.email });
-      
+      const usuario = await this.userRepository.findOneBy({ email: user.email });
+
         if (usuario) {
           return new BadRequestException('Email already registered');
         }

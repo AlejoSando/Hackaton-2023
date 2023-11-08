@@ -6,15 +6,23 @@ import {
   Typography,
   Button,
   Tooltip,
-  IconButton,
+  IconButton
 } from "@material-tailwind/react";
- 
-const CardComponent = ({viaje}) => {
-  const { id, horaSalida, horaLlegada, origen, destino, costo, numeroVuelo, foto } = viaje;
+import { Link } from "react-router-dom";
+
+const CardComponent = ({ viaje }) => {
+  const {
+    id,
+    horaSalida,
+    horaLlegada,
+    origen,
+    destino,
+    costo,
+    foto
+  } = viaje;
   return (
     <Card className="w-full max-w-[26rem] shadow-lg flex flex-col">
       <CardHeader floated={false} color="blue-gray" className="m-3">
-
         <img
           src={foto}
           alt="ui/ux review check"
@@ -38,10 +46,18 @@ const CardComponent = ({viaje}) => {
       </CardHeader>
       <CardBody className=" mx-5">
         <div className="mb-4 flex items-center justify-between">
-          <Typography variant="h2" color="blue-gray" className="font-semibold text-xl">
+          <Typography
+            variant="h2"
+            color="blue-gray"
+            className="font-semibold text-xl"
+          >
             Destino: {destino}
           </Typography>
-          <Typography variant="h2" color="blue-gray" className="font-semibold text-xl">            
+          <Typography
+            variant="h2"
+            color="blue-gray"
+            className="font-semibold text-xl"
+          >
             Origen: {origen}
           </Typography>
         </div>
@@ -51,9 +67,13 @@ const CardComponent = ({viaje}) => {
         <Typography color="gray" className="text-gray-500 pb-2">
           Hora de llegada: {horaLlegada}
         </Typography>
-        <Typography variant="h2" color="blue-gray" className="font-semibold text-xl">
-            Precio: {costo} $
-          </Typography>
+        <Typography
+          variant="h2"
+          color="blue-gray"
+          className="font-semibold text-xl"
+        >
+          Precio: {costo} $
+        </Typography>
         <div className="group mt-8 inline-flex flex-wrap items-center gap-3">
           <Tooltip content="Mucho Dinero">
             <span className="cursor-pointer rounded-full border border-gray-900/5 bg-gray-900/5 p-3 text-gray-900 transition-colors hover:border-gray-900/10 hover:bg-gray-900/10 hover:!opacity-100 group-hover:opacity-70">
@@ -143,12 +163,14 @@ const CardComponent = ({viaje}) => {
         </div>
       </CardBody>
       <CardFooter className=" p-5">
-      <Button size="lg" className="w-full h-12 bg-black text-white">
-          Comprar pasaje
-        </Button>
+        <Link to={`/buy/${id}`} className="w-full h-12 block">
+          <Button size="lg" className="w-full h-full bg-black text-white">
+            Comprar pasaje
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
-}
+};
 
-export default CardComponent
+export default CardComponent;

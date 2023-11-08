@@ -9,53 +9,49 @@ import {
   Button
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { Link, redirect } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-
-
+import { Link, json, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [dataLogin, setDataLogin ] = useState(null)
+  const [dataLogin, setDataLogin] = useState(null);
 
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
-
     const data = { email: email, password: password };
 
-  
     try {
       const response = await fetch("http://localhost:3000/api/v1/user/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(data), 
+        body: JSON.stringify(data)
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const responseData = await response.json();
-      if(responseData.ponce.token) {
-        setDataLogin(responseData)
-        navigate("/",)
-        }
-      return responseData
+      if (responseData.ponce.token) {
+        setDataLogin(responseData);
+        await localStorage.setItem("userSession", JSON.stringify(responseData))
+        navigate("/");
+      }
+      return responseData;
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
-      throw error; 
+      throw error;
     }
   };
-  
 
   return (
     <Card className="flex justify-center items-center w-screen h-screen">
-      <div className="shadow-xl  border-solid border-2 border-slate-800  rounded-md w-96 pt-4">
+      <div className="shadow-xl  border-solid border-2 border-slate-800  rounded-md w-1/3 pt-4">
         <CardHeader
           variant="gradient"
           color="gray"
@@ -74,7 +70,11 @@ const Login = () => {
           >
             Email
           </Typography>
-          <Input size="lg" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            size="lg"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Typography
             as="a"
             variant="small"
@@ -83,27 +83,34 @@ const Login = () => {
           >
             Contraseña
           </Typography>
-          <Input size="lg" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <Input
+            size="lg"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <div className="-ml-2.5">
-            <Checkbox label="Mantener la sesión" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
+            <Checkbox
+              label="Mantener la sesión"
+              checked={rememberMe}
+              onChange={() => setRememberMe(!rememberMe)}
+            />
           </div>
         </CardBody>
         <CardFooter className="pt-0">
-          <Button variant="gradient" fullWidth className="bg-slate-800" onClick={handleLogin}>
+          <Button
+            variant="gradient"
+            fullWidth
+            className="bg-slate-800"
+            onClick={handleLogin}
+          >
             Iniciar Sesión
           </Button>
           <Typography variant="small" className="mt-6 flex justify-center">
             No tenes cuenta?
-            <Typography
-              as="a"
-              href="#signup"
-              variant="small"
-              color="blue-gray"
-              className="ml-1 font-bold"
-            >
+            <span className="ml-1 font-bold">
               <Link to={"/registro"}>Crear cuenta.</Link>
-              
-            </Typography>
+            </span>
           </Typography>
         </CardFooter>
       </div>

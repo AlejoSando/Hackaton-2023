@@ -20,8 +20,8 @@ export class User {
     @Transform(({ value }) => value.toUpperCase())
     role: UserRole
     
-    @Column({type: 'datetime', nullable:true})
-    fec_nac: Date
+    @Column({nullable:true})
+    fec_nac: string
     
     @Column()
     @Transform(({ value }) => value.trim())

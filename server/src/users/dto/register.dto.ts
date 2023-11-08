@@ -16,6 +16,9 @@ export class CreateUserDto {
     @IsString()
     password: string
 
+    @IsString()
+    fec_nac:string
+
 }
 
 export enum UserRole {

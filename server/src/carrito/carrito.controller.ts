@@ -35,7 +35,7 @@ export class CarritoController {
   }
 
  
-  @Post('comprar/:carritoId/agregar-viaje/:viajeId')
+  @Get('comprar/:carritoId/agregar-viaje/:viajeId')
   async agregarViajeAlCarrito(
     @Param('carritoId') carritoId: number,
     @Param('viajeId') viajeId: number,

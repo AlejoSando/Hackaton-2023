@@ -29,7 +29,6 @@ export class UserController {
 
     @Post("login")
     async login(@Body() user: LoginDto, @Res() res) {
-        console.log(user)
         const response = await this.usersService.login(user)
         res.status(HttpStatus.OK).send({message: 'Inicio de sesión exitoso.', ponce: response})
     }

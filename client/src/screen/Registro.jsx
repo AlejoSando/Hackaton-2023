@@ -10,7 +10,6 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { registrar } from '../functions/registro.js'
 
 const Registro = () => {
   const [email, setEmail] = useState("");
@@ -21,14 +20,40 @@ const Registro = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleRegis = async () => {
-    const data = { email: email, contrasenia: password, surname: surname, name: name, fec_nac: fec_nac   };
-    const response = await registrar(data);
-    return response;
+    const data = {
+      email: email,
+      password: password,
+      surname: surname,
+      name: name,
+      fec_nac: fec_nac
+    };
+  
+    console.log("Request Data:", data);
+  
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+  
+      const responseData = await response.json();
+  
+      console.log("Response Data:", responseData);
+  
+      return responseData;
+    } catch (error) {
+      console.error("Error:", error.message);
+      return { error: error.message };
+    }
   };
+  
 
   return (
     <Card className="flex justify-center items-center w-screen h-screen">
-      <div className="shadow-xl  border-solid border-2 border-slate-800  rounded-md w-96 pt-4">
+      <div className="shadow-xl  border-solid border-2 border-slate-800  rounded-md w-1/3 pt-4">
         <CardHeader
           variant="gradient"
           color="gray"
@@ -124,17 +149,16 @@ const Registro = () => {
           >
             Iniciar Sesión
           </Button>
-          <Typography variant="small" className="mt-6 flex justify-center">
+          <Typography
+            as="span"
+            variant="small"
+            color="blue-gray"
+            className="ml-1 font-bold"
+          >
             Tenés una cuenta?
-            <Typography
-              as="a"
-              href="#signup"
-              variant="small"
-              color="blue-gray"
-              className="ml-1 font-bold"
-            >
+            <span>
               <Link to={"/login"}>Inicia sesión.</Link>
-            </Typography>
+            </span>
           </Typography>
         </CardFooter>
       </div>
